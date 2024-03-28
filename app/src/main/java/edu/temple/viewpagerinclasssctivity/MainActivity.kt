@@ -17,14 +17,22 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.viewPager)
     }
 
+    var numberOfFragments = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         viewPager.adapter = object: FragmentStateAdapter(this) {
-            override fun getItemCount() = 10
+            override fun getItemCount() = numberOfFragments
 
             override fun createFragment(position: Int) = TextFragment.newInstance((position + 1).toString())
+
+        }
+
+        newButton.setOnClickListener {
+            numberOfFragments++
+            (viewPager.adapter as FragmentStateAdapter).notifyDataSetChanged()
+            viewPager.setCurrentItem(numberOfFragments - 1, true)
 
         }
 
