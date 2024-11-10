@@ -12,6 +12,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        with (findViewById<ViewPager2>(R.id.viewPager)) {
+            adapter = object: FragmentStateAdapter(this@MainActivity) {
+                override fun getItemCount(): Int {
+                    return 10
+                }
+
+                override fun createFragment(position: Int): Fragment {
+                    return TextFragment.newInstance((position + 1).toString())
+                }
+
+            }
+        }
+
     }
 
 }
